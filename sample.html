@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1252"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.3.2.2 (Windows)"/>
+	<meta name="created" content="2022-11-10T06:38:04.326000000"/>
+	<meta name="changed" content="2022-11-11T11:31:01.858000000"/>
+	<style type="text/css">
+		@page { size: 21cm 29.7cm; margin: 2cm }
+		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
+		h1 { margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Sans", sans-serif; font-size: 18pt; font-weight: bold }
+		h1.cjk { font-family: "Microsoft YaHei"; font-size: 18pt; font-weight: bold }
+		h1.ctl { font-family: "Lucida Sans"; font-size: 18pt; font-weight: bold }
+		h2 { margin-top: 0.35cm; margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Liberation Sans", sans-serif; font-size: 16pt; font-weight: bold }
+		h2.cjk { font-family: "Microsoft YaHei"; font-size: 16pt; font-weight: bold }
+		h2.ctl { font-family: "Lucida Sans"; font-size: 16pt; font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-AU" link="#000080" vlink="#800000" dir="ltr"><h1 class="western">
+kucoin-lending 
+</h1>
+<h2 class="western">Overview</h2>
+<p>This bot automates your asset lending on kucoin.com, it improves
+on the auto-lend feature by cancelling orders that have been sitting
+around for a given number of hours</p>
+<p>It than goes and relends these assets</p>
+<h2 class="western">Features</h2>
+<ul>
+	<li><p>Implementation of REST endpoints</p>
+	<li><p>Cancel loan orders that are more than certain number of hours
+	old</p>
+	<li><p>Submit lend orders, splitting them into (and up to) 3 lowest
+	lending rates</p>
+	<li><p>Generate transaction report</p>
+	<li><p>add to 'unlendable' assets file, (assets with no landing
+	rates available)</p>
+	<li><p>add to 'lending precision' file, if an asset already does not
+	exist in it, precision = decimal place accuracy for lend orders, ie
+	USDT is 1, AVAX is 0.1 etc</p>
+</ul>
+<h2 class="western">Setup</h2>
+<ul>
+	<li><p>Generate a 'Trade' API in Kucoin</p>
+	<li><p>Kucoin Sandbox doesn't really work with lending at the time
+	of writing</p>
+	<li><p>Store generated keys in your env under</p>
+	<ul>
+		<li><p>            API_NAME,</p>
+		<li><p>            API_KEY,</p>
+		<li><p>            API_PASSPHRASE,</p>
+		<li><p>            API_SECRET</p>
+	</ul>
+	<li><p>set delete_orders_older_than_hours to how long you want
+	orders to persist</p>
+</ul>
+<ul>
+	<li><p>no need to switch off auto-lend, old orders will get
+	cancelled and resubmitted before auto-lend wakes up, however, I
+	recommend to switch off auto-lend anyway</p>
+	<li><p>assets that you do not want processed add to unlendable.csv</p>
+	<li><p>run program, trans_log.txt will report of cancellations and
+	new lend orders</p>
+</ul>
+<h2 class="western">Going forward</h2>
+<ul>
+	<li><p>have one call to kucoin in the object implement *args to pass
+	2 or 3 values depending on call</p>
+	<li><p>check which way an asset is trending, if it's going up use
+	slightly higher interest rates</p>
+</ul>
+<h2 class="western">Change Log</h2>
+<table width="643" cellpadding="4" cellspacing="0">
+	<col width="82"/>
+
+	<col width="543"/>
+
+	<tr valign="top">
+		<td width="82" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p>
+			0.1.2</p>
+		</td>
+		<td width="543" style="border: 1px solid #000000; padding: 0.1cm">
+			<ul><li><p>lending rates step up at 0.0001 from lowest available,
+				therefore if current rates from Kucoin are 0.00001 and 00003, our
+				lending rates will fill in the 0.00002 gap</p>
+				<li><p>production (True/False) flag taken out</p>
+				<li><p>if after rounding lend amount is 0.00, no lending,
+				especially true for ETH</p>
+				<li><p>improved rounding of amount to be lent out</p>
+			</ul>
+		</td>
+	</tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr valign="top">
+		<td width="82" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p>
+			0.1.1</p>
+		</td>
+		<td width="543" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p>
+			fix up some assets amount format issues in trans_log.txt</p>
+		</td>
+	</tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr></tr>
+	<tr valign="top">
+		<td width="82" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p>
+			0.1.0</p>
+		</td>
+		<td width="543" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p>
+			initial Alpha</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<h1 class="western"></h1>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>
